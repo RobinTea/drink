@@ -1,0 +1,38 @@
+<div class="search-page">
+  <div class="search-header">
+    <h1 class="search-title">Find Your Perfect Drink</h1>
+    <div class="search-bar">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (ngModelChange)="onSearchChange()"
+        placeholder="Search by name, type, or color..."
+        class="search-input"
+      >
+      <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+    </div>
+  </div>
+  
+  <div class="search-results">
+    <div class="container">
+      <p class="results-count" *ngIf="searchQuery">
+        Found {{ filteredDrinks.length }} drink(s)
+      </p>
+      
+      <div class="products-grid" *ngIf="filteredDrinks.length > 0">
+        <app-drink-card *ngFor="let drink of filteredDrinks" [drink]="drink"></app-drink-card>
+      </div>
+      
+      <div class="no-results" *ngIf="filteredDrinks.length === 0 && searchQuery">
+        <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <p>No drinks found matching "{{ searchQuery }}"</p>
+      </div>
+    </div>
+  </div>
+</div>

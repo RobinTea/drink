@@ -1,0 +1,10 @@
+<app-hero></app-hero>
+
+<section class="products-section" id="products">
+  <div class="container">
+    <h2 class="section-title">Our Drinks Collection</h2>
+    <div class="products-grid">
+      <app-drink-card *ngFor="let drink of drinks" [drink]="drink"></app-drink-card>
+    </div>
+  </div>
+</section>

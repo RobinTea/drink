@@ -1,0 +1,64 @@
+<div class="product-detail" *ngIf="drink">
+  <div class="container">
+    <div class="product-layout">
+      <div class="product-image-section">
+        <div class="product-image" [style.background]="'linear-gradient(135deg, ' + drink.color.toLowerCase() + ' 0%, rgba(0,172,193,0.3) 100%)'">
+          <svg width="300" height="300" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+      </div>
+      
+      <div class="product-info-section">
+        <span class="type-badge">{{ drink.type }}</span>
+        <h1 class="product-name">{{ drink.name }}</h1>
+        
+        <div class="price-section">
+          <div *ngIf="drink.discount === 0">
+            <span class="price">${{ drink.price }}</span>
+          </div>
+          <div *ngIf="drink.discount > 0" class="discount-container">
+            <span class="original-price">${{ drink.price }}</span>
+            <span class="discounted-price">${{ getDiscountedPrice().toFixed(2) }}</span>
+            <span class="discount-badge">Save {{ drink.discount }}%</span>
+          </div>
+        </div>
+        
+        <div class="product-details">
+          <div class="detail-row">
+            <span class="detail-label">Color:</span>
+            <span class="detail-value">{{ drink.color }}</span>
+            <span class="color-indicator" [style.background]="drink.color.toLowerCase()"></span>
+          </div>
+          
+          <div class="detail-row">
+            <span class="detail-label">Stock:</span>
+            <span class="detail-value" [class.out-of-stock]="isOutOfStock()">
+              {{ isOutOfStock() ? 'Out of Stock' : drink.amount + ' available' }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="quantity-section" *ngIf="!isOutOfStock()">
+          <label class="quantity-label">Quantity:</label>
+          <div class="quantity-control">
+            <button (click)="decreaseQuantity()" class="qty-btn">-</button>
+            <input type="number" [(ngModel)]="quantity" min="1" [max]="drink.amount" class="qty-input">
+            <button (click)="increaseQuantity()" class="qty-btn">+</button>
+          </div>
+        </div>
+        
+        <button 
+          (click)="addToCart()" 
+          [disabled]="isOutOfStock()"
+          class="add-to-cart-btn"
+          [class.added]="addedToCart"
+        >
+          <span *ngIf="!addedToCart && !isOutOfStock()">Add to Cart</span>
+          <span *ngIf="addedToCart">✓ Added to Cart</span>
+          <span *ngIf="isOutOfStock()">Out of Stock</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

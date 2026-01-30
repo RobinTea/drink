@@ -1,0 +1,22 @@
+<a [routerLink]="['/product', drink.id]" class="drink-card">
+  <div class="card-image" [style.background]="'linear-gradient(135deg, ' + drink.color.toLowerCase() + ' 0%, rgba(0,172,193,0.3) 100%)'">
+    <span class="type-badge">{{ drink.type }}</span>
+    <div class="drink-placeholder">
+      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+    </div>
+  </div>
+  
+  <div class="card-content">
+    <h3 class="drink-name">{{ drink.name }}</h3>
+    <div class="price-section">
+      <span class="price" *ngIf="drink.discount === 0">${{ drink.price }}</span>
+      <div *ngIf="drink.discount > 0" class="discount-price">
+        <span class="original-price">${{ drink.price }}</span>
+        <span class="discounted">${{ getDiscountedPrice().toFixed(2) }}</span>
+        <span class="discount-badge">-{{ drink.discount }}%</span>
+      </div>
+    </div>
+  </div>
+</a>
